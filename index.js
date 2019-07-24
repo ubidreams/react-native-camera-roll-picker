@@ -106,6 +106,15 @@ class CameraRollPicker extends Component {
     this.setState(newState);
   }
 
+  fetchError(e) {
+    const {
+      onError,
+    } = this.props;
+
+    onError(e);
+    this.setState({ initialLoading: false });
+  }
+
   fetch() {
     if (!this.state.loadingMore) {
       this.setState({ loadingMore: true }, () => { this.doFetch(); });
@@ -131,7 +140,8 @@ class CameraRollPicker extends Component {
     }
 
     CameraRoll.getPhotos(fetchParams)
-      .then(data => this.appendImages(data), e => console.log(e));
+      .then(data => this.appendImages(data))
+      .catch((err) => this.fetchError(err));
   }
 
   selectImage(image) {
@@ -282,6 +292,7 @@ CameraRollPicker.propTypes = {
   emptyText: PropTypes.string,
   emptyTextStyle: Text.propTypes.style,
   loader: PropTypes.node,
+  onError: PropTypes.func,
 };
 
 CameraRollPicker.defaultProps = {
@@ -299,6 +310,9 @@ CameraRollPicker.defaultProps = {
     console.log(selectedImages);
   },
   emptyText: 'No photos.',
+  onError(e) {
+    console.log(e);
+  },
 };
 
 export default CameraRollPicker;
