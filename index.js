@@ -221,13 +221,25 @@ class CameraRollPicker extends Component {
     return null;
   }
 
+  renderEmpty() {
+    const {
+      emptyState,
+      emptyText,
+      emptyTextStyle,
+     } = this.props;
+
+    if (emptyState) {
+      return emptyState
+    } else {
+      return <Text style={[{ textAlign: 'center' }, emptyTextStyle]}>{emptyText}</Text>;
+    }
+  }
+
   render() {
     const {
       initialNumToRender,
       imageMargin,
       backgroundColor,
-      emptyText,
-      emptyTextStyle,
       loader,
     } = this.props;
 
@@ -251,7 +263,7 @@ class CameraRollPicker extends Component {
         extraData={this.state.selected}
       />
     ) : (
-      <Text style={[{ textAlign: 'center' }, emptyTextStyle]}>{emptyText}</Text>
+      this.renderEmpty()
     );
 
     return (
@@ -293,6 +305,7 @@ CameraRollPicker.propTypes = {
   emptyTextStyle: Text.propTypes.style,
   loader: PropTypes.node,
   onError: PropTypes.func,
+  emptyState: PropTypes.node,
 };
 
 CameraRollPicker.defaultProps = {

@@ -43,6 +43,7 @@ import CameraRollPicker from 'react-native-camera-roll-picker';
 - `emptyText`: Text to display instead of a list when there are no photos found. (Default: 'No photos.')
 - `emptyTextStyle`: Styles to apply to the `emptyText`. (Default: `textAlign: 'center'`)
 - `loader`: Loader component node. (Default: `<ActivityIndicator />`)
+- `emptyState`: Add custom component to shown instead of just text. (Default: `null`). If set, `emptyText` property is ignored.
 
 ## Run Example
 ```
